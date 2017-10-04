@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class UserController : MonoBehaviour {
 
@@ -9,7 +13,19 @@ public class UserController : MonoBehaviour {
 	GameObject sword;
 
 	[SerializeField]
+	GameObject key;
+
+	[SerializeField]
+	GameObject letter;
+
+	[SerializeField]
+	Text letterText;
+
+	[SerializeField]
 	Text gameText;
+
+	private bool haveLetter = false;
+	private bool getfree = false;
 
 	private float X_MIN = -3f;
 	private float X_MAX = 3f;
@@ -28,7 +44,7 @@ public class UserController : MonoBehaviour {
 
 		gameText.text = "Free yourself!";
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		var movement = Vector3.zero;
@@ -44,7 +60,7 @@ public class UserController : MonoBehaviour {
 			movement.z++;
 
 		if (Input.GetKey ("q"))
-			rotation = 1f;
+			rotation = 1f; //rotate up and down, need left and right
 		if (Input.GetKey ("e"))
 			rotation = -1f;
 
@@ -65,8 +81,35 @@ public class UserController : MonoBehaviour {
 		Vector3 swordPos = new Vector3 (sword.transform.localPosition.x, 0, sword.transform.localPosition.z);
 		if (Vector3.Distance (userPos, swordPos) < 1) {
 			gameText.text = "You are free!";
+			getfree = true;
 		}
+		Vector3 keyPos = new Vector3 (key.transform.localPosition.x, 0, key.transform.localPosition.z);
+		if (Vector3.Distance (userPos, keyPos) < 1 && getfree == true) {
+			gameText.text = "You get a key and a letter!";
+			haveLetter = true;
+		}
+
+		Vector3 letterPos = new Vector3 (letter.transform.localPosition.x, 0, letter.transform.localPosition.z);
+		if (Vector3.Distance (userPos, letterPos) < 1 && getfree == true) {
+			letterText.text = "Notification: You just get a letter from your loyal CabinBoy, Lloyd." +
+				"\n\nDear Captain:" +
+				"\n\tI am sorry that I cannot save you out when the mutiny happened.I left this letter along with the key beside it to offer you some help." +
+				"You can use the key to get out of the cell by opening the lock. In addition, here is the steps about how to build a cannon." +
+				"\n\t\t1. You need a cannon ball." +
+				"\n\t\t2. You need gunpowder. (These two things can be found in or around the jail cell." +
+				"\n\nBest regards." +
+				"\nLloyd";
+		}
+
+
+		if (Vector3.Distance (userPos, letterPos) > 1 && haveLetter == true) {
+			letterText.text = "Notification: You now have: a key, a letter." +
+			"\n What you need: gunpowder, cannonball.";
+		}
+
 
 	}
 
 }
+
+ 
