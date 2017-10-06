@@ -91,24 +91,25 @@ public class UserController : MonoBehaviour {
 
 		Vector3 letterPos = new Vector3 (letter.transform.localPosition.x, 0, letter.transform.localPosition.z);
 		if (Vector3.Distance (userPos, letterPos) < 1 && getfree == true) {
-			letterText.text = "Notification: You just get a letter from your loyal CabinBoy, Lloyd." +
+			letterText.text = "<i>Notification</i>: <color=#FFFFFFEA>You just get a letter from your loyal CabinBoy, Lloyd." +
 				"\n\nDear Captain:" +
-				"\n\tI am sorry that I cannot save you out when the mutiny happened.I left this letter along with the key beside it to offer you some help." +
-				"You can use the key to get out of the cell by opening the lock. In addition, here is the steps about how to build a cannon." +
+				"\n\tI am sorry that I cannot save you out when the mutiny happened.I left this letter along with the key to offer you some help." +
+				"This is the key to the lock of the jail cell. In addition, here is the steps about how to build a cannon." +
 				"\n\t\t1. You need a cannon ball." +
-				"\n\t\t2. You need gunpowder. (These two things can be found in or around the jail cell." +
+				"\n\t\t2. You need gunpowder." +
 				"\n\nBest regards." +
-				"\nLloyd";
+				"\nLloyd</color>";
 		}
 
 
 		if (Vector3.Distance (userPos, letterPos) > 1 && haveLetter == true) {
-			letterText.text = "Notification: You now have: a key, a letter." +
-			"\n What you need: gunpowder, cannonball.";
+			letterText.text = "<i>Notification</i>:<color=#FFFFFFEA> You now have: a key, a letter.</color>" +
+				"\n<i>What you need</i>:<color=#FFFFFFEA> gunpowder, cannonball.</color>";
 		}
 
 
 	}
+
 
 }
 
