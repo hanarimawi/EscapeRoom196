@@ -11,16 +11,13 @@ public class UserController : MonoBehaviour {
 
 	[SerializeField]
 	GameObject sword;
-
 	[SerializeField]
 	GameObject key;
-
 	[SerializeField]
 	GameObject letter;
 
 	[SerializeField]
 	Text letterText;
-
 	[SerializeField]
 	Text gameText;
 
@@ -83,12 +80,15 @@ public class UserController : MonoBehaviour {
 			gameText.text = "You are free!";
 			getfree = true;
 		}
+
+		//get the key
 		Vector3 keyPos = new Vector3 (key.transform.localPosition.x, 0, key.transform.localPosition.z);
 		if (Vector3.Distance (userPos, keyPos) < 1 && getfree == true) {
 			gameText.text = "You get a key and a letter!";
 			haveLetter = true;
 		}
 
+		//get the letter
 		Vector3 letterPos = new Vector3 (letter.transform.localPosition.x, 0, letter.transform.localPosition.z);
 		if (Vector3.Distance (userPos, letterPos) < 1 && getfree == true) {
 			letterText.text = "<i>Notification</i>: <color=#FFFFFFEA>You just get a letter from your loyal CabinBoy, Lloyd." +
@@ -101,7 +101,7 @@ public class UserController : MonoBehaviour {
 				"\nLloyd</color>";
 		}
 
-
+		//recent notification update
 		if (Vector3.Distance (userPos, letterPos) > 1 && haveLetter == true) {
 			letterText.text = "<i>Notification</i>:<color=#FFFFFFEA> You now have: a key, a letter.</color>" +
 				"\n<i>What you need</i>:<color=#FFFFFFEA> gunpowder, cannonball.</color>";
