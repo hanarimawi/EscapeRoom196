@@ -11,60 +11,57 @@ public class UserController : MonoBehaviour {
 	[SerializeField]
 	Text gameText;
 
-	private float X_MIN = -3f;
-	private float X_MAX = 3f;
+	[SerializeField]
+	Collider _collider;
 
-	private float Y_MIN = 0f;
-	private float Y_MAX = 10f;
+	[SerializeField]
+	GameObject camera;
 
-	private float Z_MIN = -3.5f;
-	private float Z_MAX = 3f;
 
-	private float speed = 1.2f;
+	private float speed = 2.0f;
 	private float rotation_speed = 13f;
+
+	private float yaw;
+	private float pitch;
+	private float lookSpeedH = 2f;
+	private float lookSpeedV = 2f;
 
 	// Use this for initialization
 	void Start () {
-
+		_collider.enabled = false;
 		gameText.text = "Free yourself!";
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		var movement = Vector3.zero;
-		float rotation = 0f;
 
-		if (Input.GetKey("w"))
-			movement.x--;
-		if (Input.GetKey("s"))
-			movement.x++;
-		if (Input.GetKey("a"))
-			movement.z--;
-		if (Input.GetKey("d"))
-			movement.z++;
+		//Camera direction look around:
+		//Look around with Left Mouse
+		if (Input.GetMouseButton(0)) {
+			yaw += lookSpeedH * Input.GetAxis("Mouse X");
+			pitch -= lookSpeedV * Input.GetAxis("Mouse Y");
 
-		if (Input.GetKey ("q"))
-			rotation = 1f;
-		if (Input.GetKey ("e"))
-			rotation = -1f;
+			camera.transform.eulerAngles = new Vector3(pitch, yaw, 0f);
+		}
 
-		transform.localPosition = new Vector3(
-			transform.localPosition.x + (movement.x * speed * Time.deltaTime), 
-			transform.localPosition.y, 
-			transform.localPosition.z + (movement.z * speed * Time.deltaTime)
-		);
 
-		transform.Rotate (new Vector3 (rotation * rotation_speed * Time.deltaTime, 0));
+		//Movement with wasd relative in direction that user if facing.
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 3.0f;
+		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
-		transform.position = new Vector3(
-			Mathf.Clamp(transform.position.x, X_MIN, X_MAX),
-			Mathf.Clamp(transform.position.y, Y_MIN, Y_MAX),
-			Mathf.Clamp(transform.position.z, Z_MIN, Z_MAX));
+		Vector3 targetDirection = new Vector3(x, 0f, z);
+		targetDirection = Camera.main.transform.TransformDirection(targetDirection);
+		targetDirection.y = 0.0f;
 
+		transform.Translate (targetDirection);
+
+
+		//Check if user touches the sword. 
 		Vector3 userPos = new Vector3 (transform.localPosition.x, 0, transform.localPosition.z);
 		Vector3 swordPos = new Vector3 (sword.transform.localPosition.x, 0, sword.transform.localPosition.z);
 		if (Vector3.Distance (userPos, swordPos) < 1) {
 			gameText.text = "You are free!";
+			_collider.enabled = true;
 		}
 
 	}
