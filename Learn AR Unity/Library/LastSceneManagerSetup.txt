@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/EscapeRoom.unity
+- path: Assets/merge.unity
   isLoaded: 1
   isActive: 1

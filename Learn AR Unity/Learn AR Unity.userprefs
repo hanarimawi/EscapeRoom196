@@ -1,10 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ExitDoorHandler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/pageaudio.cs">
     <Files>
-      <File FileName="Assets/DoorHandler.cs" Line="9" Column="2" />
-      <File FileName="Assets/UserController.cs" Line="3" Column="19" />
-      <File FileName="Assets/ExitDoorHandler.cs" Line="33" Column="4" />
+      <File FileName="Assets/pageaudio.cs" Line="12" Column="2" />
+      <File FileName="Assets/UserController.cs" Line="102" Column="58" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
