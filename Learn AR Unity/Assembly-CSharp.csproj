@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Animations\DoorHandler.cs" />
      <Compile Include="Assets\Animations\ExitDoorHandler.cs" />
+     <Compile Include="Assets\CannonInteractionScript.cs" />
      <Compile Include="Assets\Environment\Water (Basic)\Scripts\WaterBasic.cs" />
      <Compile Include="Assets\Environment\Water\Water\Scripts\Displace.cs" />
      <Compile Include="Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />

@@ -18,6 +18,9 @@ public class UserController : MonoBehaviour {
 	GameObject camera;
 
 
+	private bool holdingGunpowder;
+	private GameObject gunpowder;
+
 	private float speed = 2.0f;
 	private float rotation_speed = 13f;
 
@@ -28,6 +31,10 @@ public class UserController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		holdingGunpowder = false;
+		gunpowder = null;
+
 		_collider.enabled = false;
 		gameText.text = "Free yourself!";
 	}
@@ -64,6 +71,53 @@ public class UserController : MonoBehaviour {
 			_collider.enabled = true;
 		}
 
+		checkPickupGunPowder ();
+
 	}
+
+	private void checkPickupGunPowder() {
+		if (gunpowder != null) {
+			if (Input.GetKey (KeyCode.Space)) {
+				gunpowder.transform.SetParent (camera.transform);
+				gunpowder.transform.localPosition = new Vector3 (0, 0, 2);
+				holdingGunpowder = true;
+				gameText.text = "";
+			}
+		}
+	}
+
+	void OnTriggerEnter(Collider collider) {
+		checkGunpowderEnter (collider);
+	}
+
+	void OnTriggerExit(Collider collider) {
+		checkGunPowderExit (collider);
+	}
+
+	//Gunpowder Interaction
+	private void checkGunpowderEnter(Collider collider) {
+		if (!holdingGunpowder) {
+			if (collider.gameObject.tag.Equals ("GunPowder")) {
+				gameText.text = "Press Space to pick up Gunpowder";
+				gameText.enabled = true;
+				gunpowder = collider.gameObject;
+			}
+		}
+	}
+
+	private void checkGunPowderExit(Collider collider) {
+		if (collider.gameObject.tag.Equals ("GunPowder")) {
+			gameText.text = "";
+			gunpowder = null;
+		}
+	}
+
+	//Sword interaction
+	/*private void checkSwordEnter(Collider collider) {
+		if (collider.gameObject.tag.Equals ("Sword")) {
+			gameText.text = "You are free.";
+			_collider.enabled = true;
+		}
+	}*/
 
 }
