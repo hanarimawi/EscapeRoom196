@@ -63,8 +63,11 @@
      <Compile Include="Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
      <Compile Include="Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
      <Compile Include="Assets\Imports\Dynamic Flickering Light\FlickeringLight.cs" />
+     <Compile Include="Assets\pageSound.cs" />
+     <Compile Include="Assets\scripts\KeySound.cs" />
      <Compile Include="Assets\scripts\pageaudio.cs" />
      <Compile Include="Assets\scripts\UserController.cs" />
+     <Compile Include="Assets\swordSound.cs" />
      <Compile Include="Assets\TutorialAssets\Scripts\FreeflightCamera.cs" />
      <Compile Include="Assets\TutorialAssets\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
      <Compile Include="Assets\TutorialAssets\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />

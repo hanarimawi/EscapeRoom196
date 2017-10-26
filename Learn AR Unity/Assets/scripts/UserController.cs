@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class UserController : MonoBehaviour {
 
@@ -20,6 +16,7 @@ public class UserController : MonoBehaviour {
 	Text letterText;
 	[SerializeField]
 	Text gameText;
+
 
 	private bool haveLetter = false;
 	private bool getfree = false;
@@ -38,6 +35,9 @@ public class UserController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		AudioSource AudioSource1 = GetComponent<AudioSource>();
+
+		AudioSource1.Play();
 
 		gameText.text = "Free yourself!";
 	}
@@ -74,6 +74,7 @@ public class UserController : MonoBehaviour {
 			Mathf.Clamp(transform.position.y, Y_MIN, Y_MAX),
 			Mathf.Clamp(transform.position.z, Z_MIN, Z_MAX));
 
+
 		Vector3 userPos = new Vector3 (transform.localPosition.x, 0, transform.localPosition.z);
 		Vector3 swordPos = new Vector3 (sword.transform.localPosition.x, 0, sword.transform.localPosition.z);
 		if (Vector3.Distance (userPos, swordPos) < 1) {
@@ -86,7 +87,10 @@ public class UserController : MonoBehaviour {
 		if (Vector3.Distance (userPos, keyPos) < 1 && getfree == true) {
 			gameText.text = "You get a key and a letter!";
 			haveLetter = true;
+
 		}
+
+
 
 		//get the letter
 		Vector3 letterPos = new Vector3 (letter.transform.localPosition.x, 0, letter.transform.localPosition.z);
@@ -99,10 +103,6 @@ public class UserController : MonoBehaviour {
 				"\n\t\t2. You need gunpowder." +
 				"\n\nBest regards." +
 				"\nLloyd</color>";
-
-			AudioSource AudioSource = GetComponent<AudioSource>();
-
-			AudioSource.Play(500);
 		}
 
 		//recent notification update

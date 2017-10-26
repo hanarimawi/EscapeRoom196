@@ -1,9 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/pageaudio.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/UserController.cs">
     <Files>
-      <File FileName="Assets/pageaudio.cs" Line="12" Column="2" />
-      <File FileName="Assets/UserController.cs" Line="102" Column="58" />
+      <File FileName="Assets/scripts/UserController.cs" Line="11" Column="17" />
+      <File FileName="Assets/scripts/KeySound.cs" Line="7" Column="1" />
+      <File FileName="Assets/swordSound.cs" Line="7" Column="1" />
+      <File FileName="Assets/pageSound.cs" Line="10" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

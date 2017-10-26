@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/merge.unity
+- path: Assets/scene/merge.unity
   isLoaded: 1
   isActive: 1
