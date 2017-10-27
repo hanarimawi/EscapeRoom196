@@ -33,11 +33,24 @@ public class UserController : MonoBehaviour {
 	private float speed = 1.2f;
 	private float rotation_speed = 13f;
 
+	AudioSource a2;
+	AudioSource a1;
+	AudioSource a3;
+	AudioSource[] walkSound;
+
+
+
+	//public AudioSource walkSound;
+
 	// Use this for initialization
 	void Start () {
-		AudioSource AudioSource1 = GetComponent<AudioSource>();
+		walkSound = GetComponents<AudioSource>();
+		a1 = walkSound [0];
 
-		AudioSource1.Play();
+		a1.Play();
+		a3 = walkSound [2];
+
+		a3.Play();
 
 		gameText.text = "Free yourself!";
 	}
@@ -47,19 +60,55 @@ public class UserController : MonoBehaviour {
 		var movement = Vector3.zero;
 		float rotation = 0f;
 
-		if (Input.GetKey("w"))
+		if (Input.GetKey ("w")) {
 			movement.x--;
-		if (Input.GetKey("s"))
-			movement.x++;
-		if (Input.GetKey("a"))
-			movement.z--;
-		if (Input.GetKey("d"))
-			movement.z++;
+			//GetComponent<AudioSource>().Play();
+		}
 
+		if (Input.GetKey ("s")) {
+			movement.x++;
+			//GetComponent<AudioSource>().Play();
+
+		}
+		if (Input.GetKey ("a")) {
+			movement.z--;
+			//GetComponent<AudioSource>().Play();
+
+		}
+		if (Input.GetKey ("d")) {
+			
+			movement.z++;
+			//GetComponent<AudioSource>().Play();
+
+		}
 		if (Input.GetKey ("q"))
 			rotation = 1f; //rotate up and down, need left and right
 		if (Input.GetKey ("e"))
 			rotation = -1f;
+
+
+		//walk Sound
+		if (Input.GetKeyDown (KeyCode.W)) {
+			a2 = walkSound [1];
+
+			a2.Play();
+		}
+		if (Input.GetKeyDown (KeyCode.S)) {
+			a2 = walkSound [1];
+
+			a2.Play();
+		}
+		if (Input.GetKeyDown (KeyCode.A)) {
+			a2 = walkSound [1];
+
+			a2.Play();
+		}
+		if (Input.GetKeyDown (KeyCode.D)) {
+			a2 = walkSound [1];
+
+			a2.Play();
+		}
+
 
 		transform.localPosition = new Vector3(
 			transform.localPosition.x + (movement.x * speed * Time.deltaTime), 
