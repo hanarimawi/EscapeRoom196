@@ -2,115 +2,122 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class UserController : MonoBehaviour {
 
 	[SerializeField]
 	GameObject sword;
-	[SerializeField]
-	GameObject key;
-	[SerializeField]
-	GameObject letter;
 
-	[SerializeField]
-	Text letterText;
 	[SerializeField]
 	Text gameText;
 
-	private bool haveLetter = false;
-	private bool getfree = false;
+	[SerializeField]
+	Collider _collider;
 
-	private float X_MIN = -3f;
-	private float X_MAX = 3f;
+	[SerializeField]
+	GameObject camera;
 
-	private float Y_MIN = 0f;
-	private float Y_MAX = 10f;
 
-	private float Z_MIN = -3.5f;
-	private float Z_MAX = 3f;
+	private bool holdingGunpowder;
+	private GameObject gunpowder;
 
-	private float speed = 1.2f;
+	private float speed = 2.0f;
 	private float rotation_speed = 13f;
+
+	private float yaw;
+	private float pitch;
+	private float lookSpeedH = 2f;
+	private float lookSpeedV = 2f;
 
 	// Use this for initialization
 	void Start () {
 
+		holdingGunpowder = false;
+		gunpowder = null;
+
+		_collider.enabled = false;
 		gameText.text = "Free yourself!";
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
-		var movement = Vector3.zero;
-		float rotation = 0f;
 
-		if (Input.GetKey("w"))
-			movement.x--;
-		if (Input.GetKey("s"))
-			movement.x++;
-		if (Input.GetKey("a"))
-			movement.z--;
-		if (Input.GetKey("d"))
-			movement.z++;
+		//Camera direction look around:
+		//Look around with Left Mouse
+		if (Input.GetMouseButton(0)) {
+			yaw += lookSpeedH * Input.GetAxis("Mouse X");
+			pitch -= lookSpeedV * Input.GetAxis("Mouse Y");
 
-		if (Input.GetKey ("q"))
-			rotation = 1f; //rotate up and down, need left and right
-		if (Input.GetKey ("e"))
-			rotation = -1f;
+			camera.transform.eulerAngles = new Vector3(pitch, yaw, 0f);
+		}
 
-		transform.localPosition = new Vector3(
-			transform.localPosition.x + (movement.x * speed * Time.deltaTime), 
-			transform.localPosition.y, 
-			transform.localPosition.z + (movement.z * speed * Time.deltaTime)
-		);
 
-		transform.Rotate (new Vector3 (rotation * rotation_speed * Time.deltaTime, 0));
+		//Movement with wasd relative in direction that user if facing.
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 3.0f;
+		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
-		transform.position = new Vector3(
-			Mathf.Clamp(transform.position.x, X_MIN, X_MAX),
-			Mathf.Clamp(transform.position.y, Y_MIN, Y_MAX),
-			Mathf.Clamp(transform.position.z, Z_MIN, Z_MAX));
+		Vector3 targetDirection = new Vector3(x, 0f, z);
+		targetDirection = Camera.main.transform.TransformDirection(targetDirection);
+		targetDirection.y = 0.0f;
 
+		transform.Translate (targetDirection);
+
+
+		//Check if user touches the sword. 
 		Vector3 userPos = new Vector3 (transform.localPosition.x, 0, transform.localPosition.z);
 		Vector3 swordPos = new Vector3 (sword.transform.localPosition.x, 0, sword.transform.localPosition.z);
 		if (Vector3.Distance (userPos, swordPos) < 1) {
 			gameText.text = "You are free!";
-			getfree = true;
+			_collider.enabled = true;
 		}
 
-		//get the key
-		Vector3 keyPos = new Vector3 (key.transform.localPosition.x, 0, key.transform.localPosition.z);
-		if (Vector3.Distance (userPos, keyPos) < 1 && getfree == true) {
-			gameText.text = "You get a key and a letter!";
-			haveLetter = true;
-		}
-
-		//get the letter
-		Vector3 letterPos = new Vector3 (letter.transform.localPosition.x, 0, letter.transform.localPosition.z);
-		if (Vector3.Distance (userPos, letterPos) < 1 && getfree == true) {
-			letterText.text = "<i>Notification</i>: <color=#FFFFFFEA>You just get a letter from your loyal CabinBoy, Lloyd." +
-				"\n\nDear Captain:" +
-				"\n\tI am sorry that I cannot save you out when the mutiny happened.I left this letter along with the key to offer you some help." +
-				"This is the key to the lock of the jail cell. In addition, here is the steps about how to build a cannon." +
-				"\n\t\t1. You need a cannon ball." +
-				"\n\t\t2. You need gunpowder." +
-				"\n\nBest regards." +
-				"\nLloyd</color>";
-		}
-
-		//recent notification update
-		if (Vector3.Distance (userPos, letterPos) > 1 && haveLetter == true) {
-			letterText.text = "<i>Notification</i>:<color=#FFFFFFEA> You now have: a key, a letter.</color>" +
-				"\n<i>What you need</i>:<color=#FFFFFFEA> gunpowder, cannonball.</color>";
-		}
-
+		checkPickupGunPowder ();
 
 	}
 
+	private void checkPickupGunPowder() {
+		if (gunpowder != null) {
+			if (Input.GetKey (KeyCode.Space)) {
+				gunpowder.transform.SetParent (camera.transform);
+				gunpowder.transform.localPosition = new Vector3 (0, 0, 2);
+				holdingGunpowder = true;
+				gameText.text = "";
+			}
+		}
+	}
+
+	void OnTriggerEnter(Collider collider) {
+		checkGunpowderEnter (collider);
+	}
+
+	void OnTriggerExit(Collider collider) {
+		checkGunPowderExit (collider);
+	}
+
+	//Gunpowder Interaction
+	private void checkGunpowderEnter(Collider collider) {
+		if (!holdingGunpowder) {
+			if (collider.gameObject.tag.Equals ("GunPowder")) {
+				gameText.text = "Press Space to pick up Gunpowder";
+				gameText.enabled = true;
+				gunpowder = collider.gameObject;
+			}
+		}
+	}
+
+	private void checkGunPowderExit(Collider collider) {
+		if (collider.gameObject.tag.Equals ("GunPowder")) {
+			gameText.text = "";
+			gunpowder = null;
+		}
+	}
+
+	//Sword interaction
+	/*private void checkSwordEnter(Collider collider) {
+		if (collider.gameObject.tag.Equals ("Sword")) {
+			gameText.text = "You are free.";
+			_collider.enabled = true;
+		}
+	}*/
 
 }
-
- 
