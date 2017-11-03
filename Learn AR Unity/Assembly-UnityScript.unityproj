@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\LevelDesignSet1_WoodenWalls\Scripts\WallSelector.js" />
+     <Compile Include="Assets\scripts\AiudioPlay.js" />
      <None Include="Assets\Laterns and candles\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Imports\Dynamic Flickering Light\readme.txt" />
      <None Include="Assets\Imports\Textures\Wood texture floor_01\readme.txt" />

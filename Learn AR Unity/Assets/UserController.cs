@@ -118,25 +118,6 @@ public class UserController : MonoBehaviour {
 
 		}
 
-		//get the letter
-		Vector3 letterPos = new Vector3 (letter.transform.localPosition.x, 0, letter.transform.localPosition.z);
-		if (Vector3.Distance (userPos, letterPos) < 1 && getfree == true) {
-			haveLetter = true;
-			letterText.text = "<i>Notification</i>: <color=#FFFFFFEA>You just get a letter from your loyal CabinBoy, Lloyd." +
-				"\n\nDear Captain:" +
-				"\n\tI am sorry that I cannot save you out when the mutiny happened.I left this letter along with the key to offer you some help." +
-				"This is the key to the lock of the jail cell. In addition, here is the steps about how to build a cannon." +
-				"\n\t\t1. You need a cannon ball." +
-				"\n\t\t2. You need gunpowder." +
-				"\n\nBest regards." +
-				"\nLloyd</color>";
-		}
-		//recent notification update
-		if (Vector3.Distance (userPos, letterPos) > 1 && haveLetter == true) {
-			letterText.text = "<i>Notification</i>:<color=#FFFFFFEA> You now have: a key, a letter.</color>" +
-				"\n<i>What you need</i>:<color=#FFFFFFEA> gunpowder, cannonball.</color>";
-		}
-
 		checkPickupGunPowder ();
 
 	}
