@@ -24,3 +24,11 @@
 /Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/carol/Desktop/EscapeRoom196/Learn AR Unity/obj/Debug/Assembly-CSharp.dll
 /Users/carol/Desktop/EscapeRoom196/Learn AR Unity/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/UnityEngine.UIAutomation.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/UnityEngine.GoogleAudioSpatializer.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/UnityEngine.SpatialTracking.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/Vuforia.UnityExtensions.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/UnityEngine.Purchasing.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/Unity.Cecil.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/Unity.Cecil.Pdb.dll
+/Users/carol/Desktop/EscapeRoom196/Learn AR Unity/Temp/bin/Debug/Unity.Cecil.Mdb.dll

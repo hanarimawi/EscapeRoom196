@@ -11,6 +11,8 @@ public class CannonInteractionScript : MonoBehaviour {
 	private GameObject gunPowder;
 	private bool hasGunPowder;
 
+	public bool escaped = false;
+
 	// Use this for initialization
 	void Start () {
 		gunPowder = null;
@@ -32,6 +34,7 @@ public class CannonInteractionScript : MonoBehaviour {
 		if (collider.gameObject.tag.Equals ("GunPowder")) {
 			gunPowder = collider.gameObject;
 			gameText.text = "Press space to load gunpowder.";
+			escaped = true;
 		}
 	}
 
